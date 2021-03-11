@@ -12,4 +12,12 @@
     <color name="colorPrimaryDark">#FF6200EE</color>
     <color name="colorAccent">#FF3700B3</color>
 
+
+    <color name="instaFirstColor">#3c43e5</color>
+    <color name="instaCenterColor">#d34267</color>
+    <color name="instaLastColor">#f6ac35</color>
+    <color name="statusbarColor">#CECECE</color>
+    <color name="textColor">#464646</color>
+
+
 </resources>

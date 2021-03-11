@@ -4,8 +4,28 @@
 
     <item
         android:id="@+id/homeFragment"
-        android:icon="@drawable/ic_baseline_home_24"
+        android:icon="@drawable/home"
         android:title="Home"
+        app:showAsAction="always"
+         />
+
+    <item
+        android:id="@+id/item_search"
+        android:icon="@drawable/search"
+        android:title="Search"
+        app:showAsAction="always"
+        />
+
+    <item
+        android:id="@+id/item_plus"
+        android:icon="@drawable/add"
+        android:title="Plus"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/item_heart"
+        android:icon="@drawable/heart"
+        android:title="Heart"
         app:showAsAction="always" />
 
 
