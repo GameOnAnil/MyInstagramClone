@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.gameonanil.imatagramcloneapp.ui.main.HomeFragment"
+        android:name="com.gameonanil.instagramcloneapp.ui.main.HomeFragment"
         android:label="Home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.gameonanil.imatagramcloneapp.ui.main.ProfileFragment"
+        android:name="com.gameonanil.instagramcloneapp.ui.main.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>

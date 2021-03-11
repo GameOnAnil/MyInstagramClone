@@ -1,5 +1,6 @@
-package com.gameonanil.imatagramcloneapp.ui.main
+package com.gameonanil.instagramcloneapp.ui.main
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -13,6 +14,9 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.gameonanil.imatagramcloneapp.R
+import com.gameonanil.instagramcloneapp.ui.start.StartActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -43,6 +47,14 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    override fun onStart() {
+        super.onStart()
+       val currentUser =  FirebaseAuth.getInstance().currentUser
+        if (currentUser !=null){
+            Toast.makeText(this, "currentUser is uid: ${currentUser.uid} ", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu,menu)
         return super.onCreateOptionsMenu(menu)
@@ -50,8 +62,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.item_logout){
-            Log.d(TAG, "onOptionsItemSelected: LOG OUT CLICKED!!!")
-            Toast.makeText(this@MainActivity, "Log out clicked", Toast.LENGTH_SHORT).show()
+            FirebaseAuth.getInstance().signOut()
+            val intent = Intent(this,StartActivity::class.java)
+            startActivity(intent)
+            finish()
         }
 
         return super.onOptionsItemSelected(item)

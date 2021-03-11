@@ -6,7 +6,7 @@
     app:startDestination="@id/loginFragment">
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.gameonanil.imatagramcloneapp.ui.start.LoginFragment"
+        android:name="com.gameonanil.instagramcloneapp.ui.start.LoginFragment"
         android:label="Login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/signupFragment"
-        android:name="com.gameonanil.imatagramcloneapp.ui.start.SignupFragment"
+        android:name="com.gameonanil.instagramcloneapp.ui.start.SignupFragment"
         android:label="Register"
         tools:layout="@layout/fragment_signup" />
 </navigation>

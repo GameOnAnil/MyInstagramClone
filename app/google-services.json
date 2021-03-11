@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1091113783848",
+    "project_id": "instagramcloneapp-5792f",
+    "storage_bucket": "instagramcloneapp-5792f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1091113783848:android:37ecd094bd0567b6fe5b1d",
+        "android_client_info": {
+          "package_name": "com.gameonanil.imatagramcloneapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1091113783848-akfkpih9915l47fol8d7dg3p4da6k2g7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5HX8Z2Zchr6679TqsqNL7L-YoilGv0PI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1091113783848-akfkpih9915l47fol8d7dg3p4da6k2g7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

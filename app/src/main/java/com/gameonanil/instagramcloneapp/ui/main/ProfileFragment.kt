@@ -1,4 +1,4 @@
-package com.gameonanil.imatagramcloneapp.ui.main
+package com.gameonanil.instagramcloneapp.ui.main
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,6 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.gameonanil.imatagramcloneapp.R
 
-class HomeFragment : Fragment(R.layout.fragment_home) {
+class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
 }
