@@ -40,7 +40,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             auth.signInWithEmailAndPassword(email,password)
                 .addOnSuccessListener { result->
                     btn_login.isEnabled = true
-                    Toast.makeText(activity, "login successfull!!! uid: ${result.user.uid}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "login successfull!!! uid: ${result?.user?.uid}", Toast.LENGTH_SHORT).show()
                     goToMainActivity()
 
 
@@ -56,6 +56,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private fun goToMainActivity(){
         val intent = Intent(activity,MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
         activity?.finish()
     }
