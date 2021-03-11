@@ -1,4 +1,4 @@
-package com.gameonanil.imatagramcloneapp.ui.login
+package com.gameonanil.imatagramcloneapp.ui.start
 
 import android.os.Bundle
 import android.view.View

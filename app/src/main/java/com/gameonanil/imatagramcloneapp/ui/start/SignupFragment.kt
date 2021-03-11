@@ -1,4 +1,4 @@
-package com.gameonanil.imatagramcloneapp.ui.login
+package com.gameonanil.imatagramcloneapp.ui.start
 
 import androidx.fragment.app.Fragment
 import com.gameonanil.imatagramcloneapp.R

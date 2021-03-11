@@ -1,12 +1,14 @@
-package com.gameonanil.imatagramcloneapp.ui.login
+package com.gameonanil.imatagramcloneapp.ui.start
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.gameonanil.imatagramcloneapp.R
+import kotlinx.android.synthetic.main.activity_login.*
 
-class LoginActivity : AppCompatActivity() {
+class StartActivity : AppCompatActivity() {
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,10 +20,14 @@ class LoginActivity : AppCompatActivity() {
         val navHostFragment =supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment
          navController = navHostFragment.navController
 
+        setSupportActionBar(toolbar_startup)
+
+        setupActionBarWithNavController(navController)
+
 
     }
 
-    override fun onNavigateUp(): Boolean {
-        return navController.navigateUp() ||super.onSupportNavigateUp()
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 }
