@@ -35,7 +35,7 @@
 
             <TextView
                 android:id="@+id/textView"
-                android:layout_width="300dp"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="@font/bilbo_swash_caps"
@@ -45,13 +45,6 @@
                 android:textSize="30dp"
                 android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="45dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="10dp"
-                app:srcCompat="@drawable/send" />
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
 

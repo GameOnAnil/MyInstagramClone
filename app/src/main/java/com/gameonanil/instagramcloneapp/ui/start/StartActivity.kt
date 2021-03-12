@@ -9,14 +9,14 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.gameonanil.imatagramcloneapp.R
 import com.gameonanil.instagramcloneapp.ui.main.MainActivity
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_start.*
 
 class StartActivity : AppCompatActivity() {
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        setContentView(R.layout.activity_start)
 
 
 

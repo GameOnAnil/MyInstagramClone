@@ -17,7 +17,7 @@
         />
 
     <item
-        android:id="@+id/item_plus"
+        android:id="@+id/addPostFragment"
         android:icon="@drawable/add"
         android:title="Plus"
         app:showAsAction="always" />
@@ -31,7 +31,7 @@
 
     <item
         android:id="@+id/profileFragment"
-        android:icon="@drawable/ic_profile"
+        android:icon="@drawable/user"
         android:title="Profile"
         app:showAsAction="always" />
 

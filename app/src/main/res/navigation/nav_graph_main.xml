@@ -15,4 +15,8 @@
         android:name="com.gameonanil.instagramcloneapp.ui.main.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/addPostFragment"
+        android:name="com.gameonanil.instagramcloneapp.ui.main.AddPostFragment"
+        android:label="AddPostFragment" />
 </navigation>
