@@ -1,59 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="12dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    app:cardElevation="5dp"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
-        android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/civProfilePic"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_margin="5dp"
-            android:src="@drawable/user"
-            android:cropToPadding="true"
 
+        <LinearLayout
+            android:id="@+id/linear1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/user_profile_image_search"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/user"
+                android:padding="5dp"/>
+
+            <TextView
+                android:id="@+id/user_name_poster"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="user name"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="14dp"
+                android:textColor="@color/colorPrimaryDark"
+                />
+
+        </LinearLayout>
+
+
+
+        <ImageView
+            android:id="@+id/post_image_home"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:src="@drawable/cat"
+            android:scaleType="centerCrop"
+            />
+
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp">
+
+            <ImageView
+                android:id="@+id/post_image_like_btn"
+                android:layout_width="41dp"
+                android:layout_height="40dp"
+                android:src="@drawable/heart"
+                />
+
+            <ImageView
+                android:id="@+id/post_image_comment_btn"
+                android:layout_width="40dp"
+                android:layout_height="34dp"
+                android:src="@drawable/comment"
+                android:layout_toEndOf="@+id/post_image_like_btn"
+                android:layout_marginTop="3dp"
+                android:layout_marginStart="6dp"
+                />
+
+            <ImageView
+                android:id="@+id/post_save_comment_btn"
+                android:layout_width="40dp"
+                android:layout_height="39dp"
+                android:src="@drawable/ic_save"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="0dp"
+                android:layout_marginRight="3dp"
+                />
+
+        </RelativeLayout>
+
+
+
+        <TextView
+            android:id="@+id/likes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:textColor="@color/colorPrimaryDark"
+            tools:text="1 Likes"
             />
 
         <TextView
-            android:id="@+id/tvUserName"
-            android:layout_width="match_parent"
+            android:id="@+id/publisher"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="User Name"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:layout_marginStart="10dp"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="Published by:"
+            />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:textSize="15dp"
+            android:textColor="@color/colorPrimary"
+            tools:text="Description Dummy"
+            />
+
+        <TextView
+            android:id="@+id/comments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:textSize="16dp"
+            android:layout_marginBottom="5dp"
+            android:text="1 Comments"
+            android:textColor="@color/colorPrimary"
+            />
+
+
+
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tvPostTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayout1"
-        android:layout_marginStart="10dp"
-        android:text="0 min ago (Dummy)" />
-
-
-    <ImageView
-        android:id="@+id/postImage"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_below="@+id/tvPostTime"
-        android:layout_marginTop="5dp"
-        android:src="@drawable/cat" />
-
-    <TextView
-        android:id="@+id/tvDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/postImage"
-        android:layout_margin="5dp"
-        android:text="Description Dummy" />
-
-
-</RelativeLayout>
+</androidx.cardview.widget.CardView>
