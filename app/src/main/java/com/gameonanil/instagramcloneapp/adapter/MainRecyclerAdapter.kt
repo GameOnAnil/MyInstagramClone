@@ -9,6 +9,8 @@ import com.bumptech.glide.Glide
 import com.gameonanil.imatagramcloneapp.databinding.MainRecyclerList2Binding
 
 import com.gameonanil.instagramcloneapp.models.Posts
+import com.gameonanil.instagramcloneapp.models.User
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 class MainRecyclerAdapter( val context: Context, private val postList: List<Posts>):
@@ -36,6 +38,15 @@ class MainRecyclerAdapter( val context: Context, private val postList: List<Post
                 Glide.with(context)
                     .load(posts.image_url)
                     .into(postImageHome)
+
+                if (posts.posted_by !=""){
+                    val documentRef = FirebaseFirestore.getInstance().collection("users").document(posts.posted_by)
+                    documentRef.get().addOnSuccessListener {
+                        val userData = it.toObject(User::class.java)
+                        binding.userNamePoster.text = userData?.username
+
+                    }
+                }
 
 
             }

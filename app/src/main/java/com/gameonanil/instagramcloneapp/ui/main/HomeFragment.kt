@@ -28,11 +28,27 @@ open class HomeFragment : Fragment(R.layout.fragment_home) {
 
         recycler_main.adapter = adapter
 
-        val collectionReference = firestore.collection("posts")
+        val collectionReference = firestore
+            .collection("posts")
+            .orderBy("creation_time_ms")
 
-        collectionReference.get().addOnSuccessListener { snapShot->
+      /*  collectionReference.get().addOnSuccessListener { snapShot->
             val postFromDB = snapShot.toObjects(Posts::class.java)
             postList.addAll(postFromDB)
+            adapter.notifyDataSetChanged()
+
+        }*/
+
+        collectionReference.addSnapshotListener{snapshot, exception ->
+            if (exception !=null || snapshot == null){
+                Log.e(TAG, "onCreate: Exception: $exception", )
+                return@addSnapshotListener
+            }
+
+            val postFromDb =  snapshot.toObjects(Posts::class.java)
+            //updating out list
+            postList.clear()
+            postList.addAll(postFromDb)
             adapter.notifyDataSetChanged()
 
         }

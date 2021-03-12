@@ -25,10 +25,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="5dp"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="@color/purple_200"
             android:elevation="10dp"
             android:text="Choose Photo"
-            android:textColor="@color/black" />
+            android:textColor="@color/white" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etEnterDescription"
@@ -36,8 +36,18 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:hint="Enter Description"
-            android:maxLength="6"
             android:padding="5dp" />
+
+        <Button
+            android:id="@+id/btnSubmit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:backgroundTint="@color/purple_200"
+            android:elevation="10dp"
+            android:text="Submit"
+            android:textColor="@color/white" />
     </LinearLayout>
 
 

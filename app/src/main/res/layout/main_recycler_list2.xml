@@ -30,7 +30,7 @@
                 android:padding="5dp"/>
 
             <TextView
-                android:id="@+id/user_name_search"
+                android:id="@+id/user_name_poster"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="user name"
