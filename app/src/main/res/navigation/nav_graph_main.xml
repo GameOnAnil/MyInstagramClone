@@ -14,9 +14,19 @@
         android:id="@+id/profileFragment"
         android:name="com.gameonanil.instagramcloneapp.ui.main.ProfileFragment"
         android:label="Profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+    </fragment>
     <fragment
-        android:id="@+id/addPostFragment"
+        android:id="@+id/editProfileFragment"
+        android:name="com.gameonanil.instagramcloneapp.ui.main.EditProfileFragment"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" />
+    <fragment
+        android:id="@+id/addPostFragment3"
         android:name="com.gameonanil.instagramcloneapp.ui.main.AddPostFragment"
-        android:label="AddPostFragment" />
+        android:label="fragment_add_post"
+        tools:layout="@layout/fragment_add_post" />
 </navigation>

@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.gameonanil.imatagramcloneapp.databinding.MainRecyclerList2Binding
+import com.gameonanil.imatagramcloneapp.databinding.MainRecyclerListBinding
 
 import com.gameonanil.instagramcloneapp.models.Posts
 import com.gameonanil.instagramcloneapp.models.User
@@ -17,7 +17,7 @@ class MainRecyclerAdapter( val context: Context, private val postList: List<Post
     RecyclerView.Adapter<MainRecyclerAdapter.MainRecyclerViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainRecyclerViewHolder {
-      val binding = MainRecyclerList2Binding.inflate(LayoutInflater.from(parent.context),parent,false)
+      val binding = MainRecyclerListBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         return MainRecyclerViewHolder(binding)
     }
 
@@ -30,7 +30,7 @@ class MainRecyclerAdapter( val context: Context, private val postList: List<Post
     override fun getItemCount() = postList.size
 
 
-    inner class MainRecyclerViewHolder(private val binding: MainRecyclerList2Binding): RecyclerView.ViewHolder(binding.root){
+    inner class MainRecyclerViewHolder(private val binding: MainRecyclerListBinding): RecyclerView.ViewHolder(binding.root){
         fun bindTo(posts: Posts) {
             binding.apply {
                 description.text = posts.description

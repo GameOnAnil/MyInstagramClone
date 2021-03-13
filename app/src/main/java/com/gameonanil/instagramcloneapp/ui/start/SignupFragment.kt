@@ -37,6 +37,7 @@ class SignupFragment : Fragment(R.layout.fragment_signup) {
             val email = etSignupEmail.text.toString().trim()
             val password = etSignUpPassword.text.toString().trim()
             val username = etUserName.text.toString().trim()
+            val fullName = etFullName.text.toString().trim()
 
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
@@ -49,6 +50,8 @@ class SignupFragment : Fragment(R.layout.fragment_signup) {
                         userMap["username"] = username
                         userMap["email"] = email
                         userMap["profile_image"] = ""
+                        userMap["profile_image"] = ""
+
 
                         val collectionRef = fireStore.collection("users")
                         val documentRef = collectionRef.document(firebaseUser.uid)
