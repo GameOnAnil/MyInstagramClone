@@ -44,6 +44,11 @@ class MainRecyclerAdapter( val context: Context, private val postList: List<Post
                     documentRef.get().addOnSuccessListener {
                         val userData = it.toObject(User::class.java)
                         binding.userNamePoster.text = userData?.username
+                        if (userData?.profile_image !=""){
+                           Glide.with(context)
+                               .load(userData!!.profile_image)
+                               .into(civUserProfileMain)
+                        }
 
                     }
                 }

@@ -25,7 +25,7 @@
         android:label="fragment_edit_profile"
         tools:layout="@layout/fragment_edit_profile" />
     <fragment
-        android:id="@+id/addPostFragment3"
+        android:id="@+id/addPostFragment"
         android:name="com.gameonanil.instagramcloneapp.ui.main.AddPostFragment"
         android:label="fragment_add_post"
         tools:layout="@layout/fragment_add_post" />

@@ -68,6 +68,10 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
 
 
+    //image cropper
+    api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
+
+
 
 
 }

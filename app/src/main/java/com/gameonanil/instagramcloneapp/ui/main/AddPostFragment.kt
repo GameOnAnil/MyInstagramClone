@@ -5,11 +5,13 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.SystemClock
+import android.provider.MediaStore
 import android.text.format.DateUtils
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.bumptech.glide.util.Util
 import com.gameonanil.imatagramcloneapp.R
 import com.gameonanil.instagramcloneapp.models.Posts
@@ -18,6 +20,8 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.theartofdev.edmodo.cropper.CropImage
+import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.main.fragment_add_post.*
 import kotlinx.android.synthetic.main.main_recycler_list.*
 
@@ -41,8 +45,11 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
         }
 
         btnChoosePhoto.setOnClickListener {
-            val intentImagePicker = Intent(Intent.ACTION_GET_CONTENT)
+            val intentImagePicker = Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             intentImagePicker.type = "image/*"
+            val mimeTypes = arrayOf("image/jpeg", "image/png", "image/jpg")
+            intentImagePicker.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
+            intentImagePicker.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
             startActivityForResult(intentImagePicker, PICKER_REQUEST_CODE)
         }
 
@@ -53,15 +60,43 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == PICKER_REQUEST_CODE) {
-            if (resultCode == Activity.RESULT_OK) {
-                photoUri = data?.data!!
-                ivPostImage.setImageURI(photoUri)
-
-            } else {
-                Toast.makeText(activity, "Image picker action canceled", Toast.LENGTH_SHORT).show()
+        when(requestCode){
+            //for image picker
+            PICKER_REQUEST_CODE->{
+                if (resultCode == Activity.RESULT_OK) {
+                   data?.data?.let {
+                       photoUri = it                    
+                      launchImageCropper(it)
+                   }
+                }
             }
+            //for image cropper
+            CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> {
+                val result = CropImage.getActivityResult(data)
+                if (resultCode == Activity.RESULT_OK) {
+                    result.uri?.let {
+                        setImage(it)
+                    }
+                } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                    Log.e(TAG, "onActivityResult: Crop Error: ${result.error}",)
+                }
+            }
+
         }
+
+    }
+
+    private fun setImage(uri: Uri) {
+        Glide.with(requireContext())
+            .load(uri)
+            .into(ivPostImage)
+
+    }
+
+    private fun launchImageCropper(uri: Uri) {
+        CropImage.activity(uri)
+            .setGuidelines(CropImageView.Guidelines.ON)
+            .start(requireContext(),this)
     }
 
     private fun handleSubmitButton() {
@@ -75,7 +110,7 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
         } else {
 
             val photoReference =
-                storageReference.child("post_images${System.currentTimeMillis()}-photo.jpg")
+                storageReference.child("/post_images/${System.currentTimeMillis()}-photo.jpg")
             photoReference.putFile(photoUri!!)
                 .continueWithTask { photoUploadTask ->
 
