@@ -80,18 +80,24 @@
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:layout_marginStart="6dp"
-                android:layout_marginTop="3dp"
                 android:layout_toEndOf="@+id/post_image_like_btn"
                 android:src="@drawable/comment" />
 
             <ImageView
-                android:id="@+id/post_save_comment_btn"
-                android:layout_width="40dp"
-                android:layout_height="39dp"
+                android:id="@+id/post_arrow"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginStart="4dp"
+                android:layout_toEndOf="@+id/post_image_comment_btn"
+                android:src="@drawable/send" />
+
+            <ImageView
+                android:id="@+id/post_book_mark"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="0dp"
-                android:layout_marginRight="3dp"
-                android:src="@drawable/ic_save" />
+                android:src="@drawable/bookmark" />
 
         </RelativeLayout>
 
