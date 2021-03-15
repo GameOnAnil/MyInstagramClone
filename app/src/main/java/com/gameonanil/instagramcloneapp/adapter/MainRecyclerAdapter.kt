@@ -44,6 +44,8 @@ class MainRecyclerAdapter( val context: Context, private val postList: List<Post
                     documentRef.get().addOnSuccessListener {
                         val userData = it.toObject(User::class.java)
                         binding.userNamePoster.text = userData?.username
+                        val publishedByText = "Published By: ${userData?.username}"
+                        binding.tvPublisher.text = publishedByText
                         if (userData?.profile_image !=""){
                            Glide.with(context)
                                .load(userData!!.profile_image)
@@ -52,6 +54,8 @@ class MainRecyclerAdapter( val context: Context, private val postList: List<Post
 
                     }
                 }
+
+                tvPostedTime.text = DateUtils.getRelativeTimeSpanString(posts.creation_time_ms)
 
 
             }

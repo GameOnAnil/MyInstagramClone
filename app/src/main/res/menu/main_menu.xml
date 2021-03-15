@@ -7,4 +7,16 @@
         android:title="Log Out"
         app:showAsAction="never"/>
 
+    <item
+        android:id="@+id/item_camera"
+        android:title="Camera"
+        android:icon="@drawable/camera"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/item_arrow"
+        android:title="Arrow"
+        android:icon="@drawable/send"
+        app:showAsAction="ifRoom"/>
+
 </menu>

@@ -6,17 +6,14 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
-import androidx.navigation.ui.setupActionBarWithNavController
 import com.gameonanil.imatagramcloneapp.R
 import com.gameonanil.instagramcloneapp.adapter.MainRecyclerAdapter
 import com.gameonanil.instagramcloneapp.models.Posts
@@ -54,7 +51,7 @@ open class HomeFragment : Fragment(R.layout.fragment_home) {
         /** TO USE OPTIONS MENU*/
         setHasOptionsMenu(true)
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
-        toolbar.setNavigationOnClickListener { view ->
+        toolbar.setNavigationOnClickListener {
             findNavController(this).navigateUp()
         }
 
@@ -87,21 +84,18 @@ open class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.main_menu,menu)
+        inflater.inflate(R.menu.main_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
 
-
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.item_logout){
+        if (item.itemId == R.id.item_logout) {
             FirebaseAuth.getInstance().signOut()
             val intent = Intent(activity, StartActivity::class.java)
             startActivity(intent)
             requireActivity().finish()
         }
-
         return super.onOptionsItemSelected(item)
     }
 

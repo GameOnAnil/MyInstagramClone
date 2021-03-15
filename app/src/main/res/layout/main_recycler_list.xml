@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="12dp"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp"
-    app:cardElevation="5dp"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_marginTop="8dp"
+    android:orientation="vertical"
+    app:cardElevation="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,7 +14,7 @@
         android:orientation="vertical">
 
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/linear1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -24,36 +22,45 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/civUserProfileMain"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:padding="5dp"
                 android:src="@drawable/user"
-                android:padding="5dp"/>
+               />
 
             <TextView
                 android:id="@+id/user_name_poster"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="2dp"
                 android:text="user name"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="14dp"
-                android:textColor="@color/colorPrimaryDark"
-                />
+                android:layout_toEndOf="@id/civUserProfileMain"/>
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/tvPostedTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
 
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:layout_toEndOf="@id/civUserProfileMain"
+                android:layout_below="@id/user_name_poster"
+                tools:text="1 mins ago"/>
+
+        </RelativeLayout>
 
 
         <ImageView
             android:id="@+id/post_image_home"
             android:layout_width="match_parent"
             android:layout_height="220dp"
-            android:src="@drawable/cat"
             android:scaleType="centerCrop"
-            />
-
-
+            android:src="@drawable/cat" />
 
 
         <RelativeLayout
@@ -64,79 +71,79 @@
 
             <ImageView
                 android:id="@+id/post_image_like_btn"
-                android:layout_width="41dp"
-                android:layout_height="40dp"
-                android:src="@drawable/heart"
-                />
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/heart" />
 
             <ImageView
                 android:id="@+id/post_image_comment_btn"
-                android:layout_width="40dp"
-                android:layout_height="34dp"
-                android:src="@drawable/comment"
-                android:layout_toEndOf="@+id/post_image_like_btn"
-                android:layout_marginTop="3dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:layout_marginStart="6dp"
-                />
+                android:layout_marginTop="3dp"
+                android:layout_toEndOf="@+id/post_image_like_btn"
+                android:src="@drawable/comment" />
 
             <ImageView
                 android:id="@+id/post_save_comment_btn"
                 android:layout_width="40dp"
                 android:layout_height="39dp"
-                android:src="@drawable/ic_save"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="0dp"
                 android:layout_marginRight="3dp"
-                />
+                android:src="@drawable/ic_save" />
 
         </RelativeLayout>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/likes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                android:text="0 Likes" />
+
+            <TextView
+                android:id="@+id/tvPublisher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/likes"
+                android:layout_marginStart="10dp"
+                android:text="Published by:"
+                android:textColor="@color/black"
+                android:textSize="15dp"
 
 
-        <TextView
-            android:id="@+id/likes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:textStyle="bold"
-            android:textSize="15dp"
-            android:textColor="@color/colorPrimaryDark"
-            tools:text="1 Likes"
-            />
+                />
 
-        <TextView
-            android:id="@+id/publisher"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:textStyle="bold"
-            android:textSize="15dp"
-            android:textColor="@color/colorPrimaryDark"
-            android:text="Published by:"
-            />
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvPublisher"
+                android:textSize="15dp"
+                tools:text="Description Dummy"
+                android:layout_margin="10dp"/>
 
-        <TextView
-            android:id="@+id/description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:textSize="15dp"
-            android:textColor="@color/colorPrimary"
-            tools:text="Description Dummy"
-            />
-
-        <TextView
-            android:id="@+id/comments"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:textSize="16dp"
-            android:layout_marginBottom="5dp"
-            android:text="1 Comments"
-            android:textColor="@color/colorPrimary"
-            />
-
+            <TextView
+                android:id="@+id/comments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/likes"
+                android:text="0 Comments"
+                android:textSize="16dp"
+                android:layout_marginStart="30dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                />
+        </RelativeLayout>
 
 
     </LinearLayout>

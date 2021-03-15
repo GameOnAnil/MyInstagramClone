@@ -4,21 +4,22 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.os.SystemClock
 import android.provider.MediaStore
-import android.text.format.DateUtils
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-import android.widget.Toolbar
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.bumptech.glide.Glide
-import com.bumptech.glide.util.Util
 import com.gameonanil.imatagramcloneapp.R
 import com.gameonanil.instagramcloneapp.models.Posts
+import com.gameonanil.instagramcloneapp.ui.start.StartActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
@@ -27,7 +28,6 @@ import com.google.firebase.storage.StorageReference
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.main.fragment_add_post.*
-import kotlinx.android.synthetic.main.main_recycler_list.*
 
 class AddPostFragment : Fragment(R.layout.fragment_add_post) {
     companion object {
@@ -37,7 +37,7 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
 
     private var photoUri: Uri? = null
     private lateinit var storageReference: StorageReference
-    private lateinit  var currentUser : FirebaseUser
+    private lateinit var currentUser: FirebaseUser
     private lateinit var appBarConfiguration: AppBarConfiguration
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -46,12 +46,20 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
         val toolbar = toolbar_add_post
         val navHostFragment = NavHostFragment.findNavController(this)
         appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.homeFragment,
+            setOf(
+                R.id.homeFragment,
                 R.id.profileFragment,
                 R.id.addPostFragment,
             )
         )
-        NavigationUI.setupWithNavController(toolbar,navHostFragment,appBarConfiguration)
+        NavigationUI.setupWithNavController(toolbar, navHostFragment, appBarConfiguration)
+
+        /** TO USE OPTIONS MENU*/
+        setHasOptionsMenu(true)
+        (activity as AppCompatActivity).setSupportActionBar(toolbar)
+        toolbar.setNavigationOnClickListener {
+            NavHostFragment.findNavController(this).navigateUp()
+        }
 
 
         storageReference = FirebaseStorage.getInstance().reference
@@ -62,7 +70,8 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
         }
 
         btnChoosePhoto.setOnClickListener {
-            val intentImagePicker = Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            val intentImagePicker =
+                Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             intentImagePicker.type = "image/*"
             val mimeTypes = arrayOf("image/jpeg", "image/png", "image/jpg")
             intentImagePicker.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
@@ -77,14 +86,14 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        when(requestCode){
+        when (requestCode) {
             //for image picker
-            PICKER_REQUEST_CODE->{
+            PICKER_REQUEST_CODE -> {
                 if (resultCode == Activity.RESULT_OK) {
-                   data?.data?.let {
-                       photoUri = it                    
-                      launchImageCropper(it)
-                   }
+                    data?.data?.let {
+                        photoUri = it
+                        launchImageCropper(it)
+                    }
                 }
             }
             //for image cropper
@@ -95,7 +104,7 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
                         setImage(it)
                     }
                 } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                    Log.e(TAG, "onActivityResult: Crop Error: ${result.error}",)
+                    Log.e(TAG, "onActivityResult: Crop Error: ${result.error}")
                 }
             }
 
@@ -113,7 +122,7 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
     private fun launchImageCropper(uri: Uri) {
         CropImage.activity(uri)
             .setGuidelines(CropImageView.Guidelines.ON)
-            .start(requireContext(),this)
+            .start(requireContext(), this)
     }
 
     private fun handleSubmitButton() {
@@ -156,5 +165,21 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
 
 
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.item_logout) {
+            FirebaseAuth.getInstance().signOut()
+            val intent = Intent(activity, StartActivity::class.java)
+            startActivity(intent)
+            requireActivity().finish()
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
