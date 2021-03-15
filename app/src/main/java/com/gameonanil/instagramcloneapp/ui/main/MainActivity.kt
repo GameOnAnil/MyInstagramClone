@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private lateinit var navController: NavController
-    private lateinit var appBarConfiguration: AppBarConfiguration
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,13 +35,13 @@ class MainActivity : AppCompatActivity() {
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container_main) as NavHostFragment
         navController = navHostFragment.navController
-        appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.homeFragment,R.id.profileFragment)
+     /*   appBarConfiguration = AppBarConfiguration(
+            setOf(R.id.homeFragment,R.id.profileFragment,R.id.addPostFragment,R.id.editProfileFragment)
         )
 
-        setSupportActionBar(toolbar_main)
+        setSupportActionBar(toolbar_main)*/
 
-        setupActionBarWithNavController(navController,appBarConfiguration)
+//        setupActionBarWithNavController(navController,appBarConfiguration)
         bottom_nav.setupWithNavController(navController)
 
 
@@ -55,21 +55,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.main_menu,menu)
-        return super.onCreateOptionsMenu(menu)
-    }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.item_logout){
-            FirebaseAuth.getInstance().signOut()
-            val intent = Intent(this,StartActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-        return super.onOptionsItemSelected(item)
-    }
 
     override fun onSupportNavigateUp(): Boolean {
         return  navController.navigateUp()|| super.onSupportNavigateUp()

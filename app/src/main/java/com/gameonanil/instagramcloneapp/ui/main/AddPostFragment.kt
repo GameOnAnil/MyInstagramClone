@@ -10,7 +10,11 @@ import android.text.format.DateUtils
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import android.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import com.bumptech.glide.Glide
 import com.bumptech.glide.util.Util
 import com.gameonanil.imatagramcloneapp.R
@@ -34,8 +38,21 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
     private var photoUri: Uri? = null
     private lateinit var storageReference: StorageReference
     private lateinit  var currentUser : FirebaseUser
+    private lateinit var appBarConfiguration: AppBarConfiguration
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        //Setting Up Toolbar
+        val toolbar = toolbar_add_post
+        val navHostFragment = NavHostFragment.findNavController(this)
+        appBarConfiguration = AppBarConfiguration(
+            setOf(R.id.homeFragment,
+                R.id.profileFragment,
+                R.id.addPostFragment,
+            )
+        )
+        NavigationUI.setupWithNavController(toolbar,navHostFragment,appBarConfiguration)
+
 
         storageReference = FirebaseStorage.getInstance().reference
         currentUser = FirebaseAuth.getInstance().currentUser!!

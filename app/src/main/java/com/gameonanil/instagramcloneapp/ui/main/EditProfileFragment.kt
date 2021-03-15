@@ -10,6 +10,9 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import com.bumptech.glide.Glide
 import com.gameonanil.imatagramcloneapp.R
 import com.gameonanil.instagramcloneapp.models.User
@@ -35,6 +38,12 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        /**Setting Up toolbar*/
+        val toolbar = toolbar_edit_profile
+        val navHostFragment = NavHostFragment.findNavController(this)
+        NavigationUI.setupWithNavController(toolbar,navHostFragment)
+
 
         collectionReference = FirebaseFirestore.getInstance().collection("users")
         currentUid = FirebaseAuth.getInstance().currentUser?.uid

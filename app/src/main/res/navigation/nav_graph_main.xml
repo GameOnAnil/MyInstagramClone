@@ -22,7 +22,7 @@
     <fragment
         android:id="@+id/editProfileFragment"
         android:name="com.gameonanil.instagramcloneapp.ui.main.EditProfileFragment"
-        android:label="fragment_edit_profile"
+        android:label="Edit Profile"
         tools:layout="@layout/fragment_edit_profile" />
     <fragment
         android:id="@+id/addPostFragment"
