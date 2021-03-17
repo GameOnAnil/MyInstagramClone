@@ -14,40 +14,42 @@
         android:layout_alignParentTop="true"
         android:background="@color/white"
         android:elevation="10dp"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
         android:gravity="start"
-        >
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme">
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="wrap_content">
 
             <TextView
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
                 android:fontFamily="@font/bilbo_swash_caps"
                 android:text="Instagram"
                 android:textAlignment="textStart"
                 android:textColor="@color/black"
                 android:textSize="30dp"
-                android:textStyle="bold"
-                android:layout_alignParentStart="true"
-                />
+                android:textStyle="bold" />
         </RelativeLayout>
 
-
-
-
-
     </androidx.appcompat.widget.Toolbar>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_story"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar_main"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/main_story_recycler_list"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/recycler_story"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/main_recycler_list"
-        android:layout_below="@id/toolbar_main"
-        />
+        tools:listitem="@layout/main_recycler_list" />
 </RelativeLayout>

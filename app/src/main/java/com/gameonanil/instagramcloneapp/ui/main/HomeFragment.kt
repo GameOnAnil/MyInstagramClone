@@ -16,7 +16,9 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.gameonanil.imatagramcloneapp.R
 import com.gameonanil.instagramcloneapp.adapter.MainRecyclerAdapter
+import com.gameonanil.instagramcloneapp.adapter.StoryRecyclerAdapter
 import com.gameonanil.instagramcloneapp.models.Posts
+import com.gameonanil.instagramcloneapp.models.User
 import com.gameonanil.instagramcloneapp.ui.start.StartActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -28,8 +30,10 @@ open class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private lateinit var firestore: FirebaseFirestore
-    private lateinit var adapter: MainRecyclerAdapter
+    private lateinit var adapterMain: MainRecyclerAdapter
+    private lateinit var adapterStory: StoryRecyclerAdapter
     private lateinit var postList: MutableList<Posts>
+    private lateinit var userList: MutableList<User>
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -57,9 +61,12 @@ open class HomeFragment : Fragment(R.layout.fragment_home) {
 
         firestore = FirebaseFirestore.getInstance()
         postList = mutableListOf()
-        adapter = MainRecyclerAdapter(requireActivity().baseContext,postList)
+        userList = mutableListOf()
+        adapterMain = MainRecyclerAdapter(requireActivity().baseContext,postList)
+        adapterStory = StoryRecyclerAdapter(requireActivity().baseContext,userList)
 
-        recycler_main.adapter = adapter
+        recycler_main.adapter = adapterMain
+        recycler_story.adapter = adapterStory
 
         val collectionReference = firestore
             .collection("posts")
@@ -71,12 +78,29 @@ open class HomeFragment : Fragment(R.layout.fragment_home) {
                 Log.e(TAG, "onCreate: Exception: $exception", )
                 return@addSnapshotListener
             }
-
             val postFromDb =  snapshot.toObjects(Posts::class.java)
             //updating out list
             postList.clear()
             postList.addAll(postFromDb)
-            adapter.notifyDataSetChanged()
+            adapterMain.notifyDataSetChanged()
+
+        }
+
+        val userCollectionReference = firestore.collection("users")
+        userCollectionReference.addSnapshotListener { snapshot, error ->
+            if (error !=null || snapshot == null){
+                Log.e(TAG, "onCreate: Exception: $error", )
+                return@addSnapshotListener
+            }
+            val userFromDb = snapshot.toObjects(User::class.java)
+            userList.clear()
+            for (user in userFromDb){
+                if (user.profile_image!=""){
+                    userList.add(user)
+                    adapterStory.notifyDataSetChanged()
+                }
+            }
+
 
         }
 

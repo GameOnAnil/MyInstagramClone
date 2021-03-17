@@ -11,6 +11,8 @@ import androidx.navigation.ui.NavigationUI
 import com.gameonanil.imatagramcloneapp.R
 import com.gameonanil.instagramcloneapp.adapter.SearchRecyclerAdapter
 import com.gameonanil.instagramcloneapp.models.User
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_search.*
 
@@ -23,6 +25,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var userList: MutableList<User>
     private lateinit var firebaseFirestore: FirebaseFirestore
+    private lateinit var currentUser: FirebaseUser
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -49,6 +52,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
         userList = mutableListOf()
         firebaseFirestore = FirebaseFirestore.getInstance()
+        currentUser = FirebaseAuth.getInstance().currentUser!!
 
         adapter = SearchRecyclerAdapter(requireActivity().baseContext,userList)
         recycler_search.adapter = adapter
@@ -63,8 +67,14 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
             val userFromDb = snapshot.toObjects(User::class.java)
             userList.clear()
-            userList.addAll(userFromDb)
-            adapter.notifyDataSetChanged()
+            for(user in userFromDb){
+                if (user.uid!=currentUser!!.uid){
+                    userList.add(user)
+                    adapter.notifyDataSetChanged()
+                }
+            }
+
+
         }
 
 
