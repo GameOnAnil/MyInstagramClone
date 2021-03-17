@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.gameonanil.imatagramcloneapp.databinding.SearchRecyclerListBinding
 import com.gameonanil.instagramcloneapp.models.User
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 
 
@@ -35,6 +36,9 @@ class SearchRecyclerAdapter(private val context: Context, val userList: List<Use
     inner class SearchViewModel(private val binding: SearchRecyclerListBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
+        private var currentUser: FirebaseUser? = FirebaseAuth.getInstance().currentUser
+        private val collectionRef = FirebaseFirestore.getInstance().collection("Follows")
+
         fun bindTo(user: User) {
             binding.apply {
                 if (user.profile_image != "") {
@@ -44,27 +48,35 @@ class SearchRecyclerAdapter(private val context: Context, val userList: List<Use
                 }
 
                 userNameSearchFrag.text = user.username
+                checkInitFollowing(user)
 
                 btnFollow.setOnClickListener {
                     if (btnFollow.text == "Follow") {
                         handleFollow(user)
 
                     } else {
-                      handleUnfollow(user)
+                        handleUnfollow(user)
                     }
                 }
 
             }
         }
 
+        fun checkInitFollowing(user: User){
+           collectionRef.document(currentUser!!.uid).collection("Following").document(user.uid).get().addOnSuccessListener {
+               if (it.contains("following")){
+                   binding.btnFollow.text = "UnFollow"
+               }
+
+           }
+
+        }
+
 
         private fun handleFollow(user: User) {
-            val currentUser = FirebaseAuth.getInstance().currentUser
             currentUser?.uid.let { uid1 ->
-                val collectionRef = FirebaseFirestore.getInstance().collection("Follows")
-                val hashMap = HashMap<String, Any>()
-                hashMap["following"] = true
-
+             val hashMap = HashMap<String, Any>()
+             hashMap["following"] = true
                 //create and set following collection
                 collectionRef.document(uid1!!)
                     .collection("Following").document(user.uid)
@@ -84,20 +96,19 @@ class SearchRecyclerAdapter(private val context: Context, val userList: List<Use
             }
         }
 
-        private fun handleUnfollow(user: User){
-            val currentUser = FirebaseAuth.getInstance().currentUser
+        private fun handleUnfollow(user: User) {
             currentUser?.uid.let { uid1 ->
-                val collectionRef = FirebaseFirestore.getInstance().collection("Follows")
                 val hashMap = HashMap<String, Any>()
                 hashMap["following"] = true
-
                 //create and set following collection
-                collectionRef.document(uid1!!).collection("Following").document(user.uid).delete().addOnSuccessListener {
-                    collectionRef.document(user.uid).collection("Followers").document(uid1).delete().addOnSuccessListener {
-                        Log.d(TAG, "handleUnfollow: Delete successful!")
-                        binding.btnFollow.text = "Follow"
+                collectionRef.document(uid1!!).collection("Following").document(user.uid).delete()
+                    .addOnSuccessListener {
+                        collectionRef.document(user.uid).collection("Followers").document(uid1)
+                            .delete().addOnSuccessListener {
+                            Log.d(TAG, "handleUnfollow: Delete successful!")
+                            binding.btnFollow.text = "Follow"
+                        }
                     }
-                }
 
             }
         }
