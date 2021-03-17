@@ -30,7 +30,6 @@ open class HomeFragment : Fragment(R.layout.fragment_home) {
     private lateinit var firestore: FirebaseFirestore
     private lateinit var adapter: MainRecyclerAdapter
     private lateinit var postList: MutableList<Posts>
-    private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

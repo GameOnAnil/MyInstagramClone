@@ -29,4 +29,9 @@
         android:name="com.gameonanil.instagramcloneapp.ui.main.AddPostFragment"
         android:label="fragment_add_post"
         tools:layout="@layout/fragment_add_post" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.gameonanil.instagramcloneapp.ui.main.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
 </navigation>

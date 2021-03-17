@@ -10,7 +10,7 @@
          />
 
     <item
-        android:id="@+id/item_search"
+        android:id="@+id/searchFragment"
         android:icon="@drawable/search"
         android:title="Search"
         app:showAsAction="always"
