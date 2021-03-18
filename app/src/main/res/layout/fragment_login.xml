@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_login"
-    android:theme="@style/ThemeOverlay.MaterialComponents.Dark"
+    android:theme="@style/DarkForStart"
     tools:context="com.gameonanil.instagramcloneapp.ui.start.LoginFragment">
 
     <TextView
@@ -67,6 +67,7 @@
             android:layout_height="60dp"
             android:text="Login"
             android:textColor="@color/white"
+            android:backgroundTint="@color/purpleButton"
 
             />
 
