@@ -46,7 +46,8 @@
             android:id="@+id/ivPostImage"
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            tools:src="@drawable/cat" />
+            android:src="@drawable/profile"
+            />
 
         <Button
             android:id="@+id/btnChoosePhoto"

@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.bumptech.glide.Glide
@@ -160,6 +161,7 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
                     etEnterDescription.text!!.clear()
                     ivPostImage.setImageResource(0)
                     Toast.makeText(activity, "Success!!", Toast.LENGTH_SHORT).show()
+                    findNavController().navigateUp()
 
                 }
 

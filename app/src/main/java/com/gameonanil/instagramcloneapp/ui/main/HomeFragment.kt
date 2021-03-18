@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -22,6 +23,7 @@ import com.gameonanil.instagramcloneapp.models.User
 import com.gameonanil.instagramcloneapp.ui.start.StartActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.fragment_home.*
 
 open class HomeFragment : Fragment(R.layout.fragment_home) {
@@ -70,7 +72,7 @@ open class HomeFragment : Fragment(R.layout.fragment_home) {
 
         val collectionReference = firestore
             .collection("posts")
-            .orderBy("creation_time_ms")
+            .orderBy("creation_time_ms",Query.Direction.DESCENDING)
 
 
         collectionReference.addSnapshotListener{snapshot, exception ->
@@ -114,6 +116,8 @@ open class HomeFragment : Fragment(R.layout.fragment_home) {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.item_logout) {
+            Log.d(TAG, "onOptionsItemSelected: logout pressed")
+
             FirebaseAuth.getInstance().signOut()
             val intent = Intent(activity, StartActivity::class.java)
             startActivity(intent)
@@ -121,5 +125,6 @@ open class HomeFragment : Fragment(R.layout.fragment_home) {
         }
         return super.onOptionsItemSelected(item)
     }
+
 
 }

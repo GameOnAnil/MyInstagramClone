@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.bumptech.glide.Glide
@@ -171,6 +172,7 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
 
             documentReference.set(newUser).addOnSuccessListener {
                 Toast.makeText(context, "Profile Updated", Toast.LENGTH_SHORT).show()
+                findNavController().navigateUp()
             }
 
         }
@@ -200,6 +202,7 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
                 )
                 documentReference.set(newUser).addOnSuccessListener {
                     Toast.makeText(activity, "Profile Updated", Toast.LENGTH_SHORT).show()
+                    findNavController().navigateUp()
                 }
             }
         }.addOnCompleteListener {

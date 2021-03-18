@@ -9,8 +9,9 @@
         android:layout_height="80dp"
         android:id="@+id/civStory"
         tools:src="@drawable/cat"
-        app:civ_border_color="@color/black"
+        app:civ_border_color="@color/storyOuter"
         app:civ_border_width="2dp"
-        android:layout_margin="3dp"/>
+        android:layout_margin="3dp"
+        />
 
 </RelativeLayout>

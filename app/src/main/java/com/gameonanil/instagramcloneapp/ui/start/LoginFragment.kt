@@ -17,8 +17,12 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private lateinit var auth:FirebaseAuth
 
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
 
         auth = FirebaseAuth.getInstance()
 

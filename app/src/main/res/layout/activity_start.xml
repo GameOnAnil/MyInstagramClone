@@ -7,11 +7,32 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_startup"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentTop="true"
         android:background="@color/white"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        android:elevation="10dp"/>
+        android:elevation="10dp"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <TextView
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bilbo_swash_caps"
+                android:text="Instagram"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                android:layout_alignParentStart="true"
+                />
+        </RelativeLayout>
+
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment_container"
