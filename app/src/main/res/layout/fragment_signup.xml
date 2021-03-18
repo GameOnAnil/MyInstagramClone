@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.gameonanil.instagramcloneapp.ui.start.SignupFragment"
-    >
+    android:background="@drawable/bg_login"
+    android:theme="@style/ThemeOverlay.MaterialComponents.Dark"
+    tools:context="com.gameonanil.instagramcloneapp.ui.start.SignupFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,40 +16,65 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.24000001">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etSignupEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter Email Address" />
+            android:layout_marginBottom="7dp"
+            android:background="@drawable/et_background"
+            android:hint="Enter Email Address"
+            android:textColorHint="@color/login_form"
+            android:imeOptions="actionNext"
+            android:inputType="textEmailAddress"
+            android:theme="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" />
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etFullName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter Full Name" />
+            android:layout_marginBottom="7dp"
+            android:background="@drawable/et_background"
+            android:hint="Enter Full Name"
+            android:textColorHint="@color/login_form"
+            android:imeOptions="actionNext"
+            android:theme="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" />
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etUserName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter User Name" />
+            android:layout_marginBottom="7dp"
+            android:background="@drawable/et_background"
+            android:hint="Enter User Name"
+            android:textColorHint="@color/login_form"
+            android:imeOptions="actionNext"
+            android:theme="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" />
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etSignUpPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter Password" />
+            android:layout_marginBottom="7dp"
+            android:background="@drawable/et_background"
+            android:hint="Enter Password"
+            android:textColorHint="@color/login_form"
+            android:theme="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:imeOptions="actionDone"
+            android:inputType="textPassword"/>
 
 
         <Button
             android:id="@+id/button_register"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
             android:layout_gravity="center_horizontal"
             android:layout_margin="8dp"
-            android:text="Register" />
+            android:backgroundTint="@color/white"
+            android:text="Register"
+            android:textColor="@color/purple" />
 
     </LinearLayout>
 

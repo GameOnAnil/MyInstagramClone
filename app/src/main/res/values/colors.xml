@@ -8,12 +8,23 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="softWhite">#F8F7F7</color>
+
     <color name="colorPrimary">#FFBB86FC</color>
     <color name="colorPrimaryDark">#FF6200EE</color>
     <color name="colorAccent">#FF3700B3</color>
 
 
     <color name="storyOuter">#d34267</color>
+    <color name="blue">#0B76CC</color>
+
+    <color name="darkBlue">#3023ae</color>
+    <color name="purple">#c86dd7</color>
+
+    <color name="login_form">#ccffffff</color>
+    <color name="login_form_light">#1affffff</color>
+    <color name="login_form_medium">#66ffffff</color>
+
 
 
 

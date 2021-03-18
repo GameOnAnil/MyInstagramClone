@@ -26,13 +26,14 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
         auth = FirebaseAuth.getInstance()
 
-        btn_signup.setOnClickListener {
+        tvSignUp.setOnClickListener {
             val action = LoginFragmentDirections.actionLoginFragmentToSignupFragment()
             findNavController().navigate(action)
         }
 
+
         btn_login.setOnClickListener {
-            if (etEmail.text.isBlank() || etPassword.text.isBlank()){
+            if (etEmail!!.text!!.isBlank() || etPassword!!.text!!.isBlank()){
                 Toast.makeText(activity, "Please fill both email and password.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }

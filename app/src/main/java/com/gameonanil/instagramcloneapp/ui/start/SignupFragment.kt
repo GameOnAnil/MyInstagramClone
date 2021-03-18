@@ -33,12 +33,12 @@ class SignupFragment : Fragment(R.layout.fragment_signup) {
         fireStore = FirebaseFirestore.getInstance()
 
         button_register.setOnClickListener {
-            if (etSignupEmail.text.isBlank() || etSignUpPassword.text.isBlank()) {
+            if (etSignupEmail.text!!.isBlank() || etSignUpPassword.text!!.isBlank()) {
                 Toast.makeText(activity, "Email and Password cannot be empty!", Toast.LENGTH_SHORT)
                     .show()
                 return@setOnClickListener
             }
-            if (etUserName.text.isBlank()) {
+            if (etUserName!!.text!!.isBlank()) {
                 Toast.makeText(activity, "UserName cannot be empty", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
