@@ -9,10 +9,10 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.net.toUri
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.bumptech.glide.Glide
 import com.gameonanil.imatagramcloneapp.R
@@ -59,26 +59,21 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
             val userNameString = etUserNameEditProfile.text.toString()
             val bioString = etBioEdit.text.toString()
 
+
             if (fullNameString.isBlank() || userNameString.isBlank()) {
                 Toast.makeText(
-                    context,
+                    activity,
                     "Please enter both username and full name",
                     Toast.LENGTH_SHORT
                 ).show()
             } else if (bioString.isBlank()) {
-                Toast.makeText(context, "Please say something in bio.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "Please say something in bio.", Toast.LENGTH_SHORT).show()
             } else {
-                if (currentUid == null) {
-                    Toast.makeText(context, "user cannot be found", Toast.LENGTH_SHORT).show()
-                } else {
+                btnConfirmChanges.isEnabled =false
+                progressbar_edit_profile.isVisible = true
 
-                    if (photoUri== null){
-                        changeUserInfo(fullNameString, userNameString, bioString)
-                    }else{
-                        changeUriIntoWithPhoto(fullNameString,userNameString,bioString)
-                    }
-
-                }
+                Log.d(TAG, "onViewCreated: confirm clicked!!!!!!!!!!!")
+                handleConfirm(fullNameString,userNameString,bioString)
             }
 
 
@@ -94,6 +89,20 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
             startActivityForResult(imagePickerIntent, GALLERY_REQUEST_CODE)
 
         }
+    }
+
+    private fun handleConfirm(fullNameString: String, userNameString: String, bioString: String) {
+        if (currentUid == null) {
+            Toast.makeText(activity, "user cannot be found", Toast.LENGTH_SHORT).show()
+        } else {
+            if (photoUri== null){
+                 changeUserInfo(fullNameString, userNameString, bioString)
+            }else{
+                changeUriIntoWithPhoto(fullNameString,userNameString,bioString)
+            }
+
+        }
+
     }
 
 
@@ -169,12 +178,19 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
                 fullname = fullNameString,
                 bio = bioString,
             )
-
             documentReference.set(newUser).addOnSuccessListener {
+                progressbar_edit_profile.isVisible = false
                 Toast.makeText(context, "Profile Updated", Toast.LENGTH_SHORT).show()
                 findNavController().navigateUp()
+            }.addOnFailureListener{
+                progressbar_edit_profile.isVisible = false
+                Toast.makeText(context, "Profile Updated Failed: ${it.message}", Toast.LENGTH_SHORT).show()
             }
 
+        }.addOnFailureListener {
+            btnConfirmChanges.isEnabled = true
+            progressbar_edit_profile.isVisible = false
+            Toast.makeText(context, "Profile Updated Failed: ${it.message}", Toast.LENGTH_SHORT).show()
         }
 
     }
@@ -201,12 +217,16 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
                     bio = bioString,
                 )
                 documentReference.set(newUser).addOnSuccessListener {
-                    Toast.makeText(activity, "Profile Updated", Toast.LENGTH_SHORT).show()
                     findNavController().navigateUp()
+                }.addOnFailureListener{
+                    progressbar_edit_profile.isVisible = false
+                    Toast.makeText(context, "Profile Updated Failed: ${it.message}", Toast.LENGTH_SHORT).show()
                 }
             }
-        }.addOnCompleteListener {
-            Toast.makeText(activity, "Profile Updated", Toast.LENGTH_SHORT).show()
+        }.addOnFailureListener {
+            btnConfirmChanges.isEnabled = true
+            progressbar_edit_profile.isVisible = false
+            Toast.makeText(context, "Profile Updated Failed: ${it.message}", Toast.LENGTH_SHORT).show()
         }
     }
 

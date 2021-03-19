@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.gameonanil.imatagramcloneapp.R
@@ -42,6 +43,8 @@ class SignupFragment : Fragment(R.layout.fragment_signup) {
                 Toast.makeText(activity, "UserName cannot be empty", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+            button_register.isEnabled = false
+            progress_sign_up.isVisible = true
 
             val email = etSignupEmail.text.toString().trim()
             val password = etSignUpPassword.text.toString().trim()
@@ -70,11 +73,16 @@ class SignupFragment : Fragment(R.layout.fragment_signup) {
                             Toast.LENGTH_SHORT
                         ).show()
 
+                        button_register.isEnabled = true
+                        progress_sign_up.isVisible = false
+
                        goToMainActivity()
                     } else {
                         Toast.makeText(activity,"signup failed: ${task.exception}",
                             Toast.LENGTH_SHORT
                         ).show()
+                        button_register.isEnabled = true
+                        progress_sign_up.isVisible = false
                     }
 
                 }

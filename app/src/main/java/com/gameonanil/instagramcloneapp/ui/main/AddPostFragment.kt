@@ -12,6 +12,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
@@ -68,6 +69,7 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
 
         btnSubmit.setOnClickListener {
             handleSubmitButton()
+
         }
 
         btnChoosePhoto.setOnClickListener {
@@ -92,7 +94,6 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
             PICKER_REQUEST_CODE -> {
                 if (resultCode == Activity.RESULT_OK) {
                     data?.data?.let {
-                        photoUri = it
                         launchImageCropper(it)
                     }
                 }
@@ -102,6 +103,7 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
                 val result = CropImage.getActivityResult(data)
                 if (resultCode == Activity.RESULT_OK) {
                     result.uri?.let {
+                        photoUri = it
                         setImage(it)
                     }
                 } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
@@ -123,6 +125,7 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
     private fun launchImageCropper(uri: Uri) {
         CropImage.activity(uri)
             .setGuidelines(CropImageView.Guidelines.ON)
+            .setAspectRatio(411, 210)
             .start(requireContext(), this)
     }
 
@@ -135,6 +138,9 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
             Toast.makeText(context, "Please Enter Description", Toast.LENGTH_SHORT).show()
             return
         } else {
+            btnSubmit.isEnabled = false
+            progress_add_post.isVisible = true
+            progress_add_post.progress
 
             val photoReference =
                 storageReference.child("/post_images/${System.currentTimeMillis()}-photo.jpg")
@@ -154,6 +160,8 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
                     FirebaseFirestore.getInstance().collection("posts").add(post)
 
                 }.addOnCompleteListener { postCreationTask ->
+                    btnSubmit.isEnabled = true
+                    progress_add_post.isVisible = false
                     if (!postCreationTask.isSuccessful) {
                         Log.e(TAG, "handleSubmitButton: exception: ", postCreationTask.exception)
                         Toast.makeText(activity, "faled to save post", Toast.LENGTH_SHORT).show()

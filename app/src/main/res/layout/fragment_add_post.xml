@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.gameonanil.instagramcloneapp.ui.main.AddPostFragment">
 
     <androidx.appcompat.widget.Toolbar
@@ -17,21 +16,21 @@
         android:theme="?attr/actionBarTheme"
 
         >
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="wrap_content">
+
             <TextView
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
                 android:fontFamily="@font/bilbo_swash_caps"
                 android:text="Instagram"
                 android:textAlignment="textStart"
                 android:textColor="@color/black"
                 android:textSize="30dp"
-                android:textStyle="bold"
-                android:layout_alignParentStart="true"
-                />
+                android:textStyle="bold" />
         </RelativeLayout>
 
     </androidx.appcompat.widget.Toolbar>
@@ -46,8 +45,7 @@
             android:id="@+id/ivPostImage"
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:src="@drawable/profile"
-            />
+            android:src="@drawable/profile" />
 
         <Button
             android:id="@+id/btnChoosePhoto"
@@ -80,5 +78,13 @@
             android:textColor="@color/white" />
     </LinearLayout>
 
+
+    <ProgressBar
+        android:id="@+id/progress_add_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        tools:visibility="visible" />
 
 </RelativeLayout>

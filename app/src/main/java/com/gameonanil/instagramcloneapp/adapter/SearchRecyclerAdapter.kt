@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.gameonanil.imatagramcloneapp.databinding.SearchRecyclerListBinding
@@ -51,10 +52,15 @@ class SearchRecyclerAdapter(private val context: Context, val userList: List<Use
                 checkInitFollowing(user)
 
                 btnFollow.setOnClickListener {
+                    Log.d(TAG, "bindTo: follow button clicked!!!!!!!!!!!!!!!!!")
                     if (btnFollow.text == "Follow") {
+                        btnFollow.isEnabled = false
+                        progressSearchItem.isVisible = true
                         handleFollow(user)
 
                     } else {
+                        btnFollow.isEnabled = false
+                        progressSearchItem.isVisible = true
                         handleUnfollow(user)
                     }
                 }
@@ -62,21 +68,22 @@ class SearchRecyclerAdapter(private val context: Context, val userList: List<Use
             }
         }
 
-        fun checkInitFollowing(user: User){
-           collectionRef.document(currentUser!!.uid).collection("Following").document(user.uid).get().addOnSuccessListener {
-               if (it.contains("following")){
-                   binding.btnFollow.text = "UnFollow"
-               }
+        fun checkInitFollowing(user: User) {
+            collectionRef.document(currentUser!!.uid).collection("Following").document(user.uid)
+                .get().addOnSuccessListener {
+                if (it.contains("following")) {
+                    binding.btnFollow.text = "UnFollow"
+                }
 
-           }
+            }
 
         }
 
 
         private fun handleFollow(user: User) {
             currentUser?.uid.let { uid1 ->
-             val hashMap = HashMap<String, Any>()
-             hashMap["following"] = true
+                val hashMap = HashMap<String, Any>()
+                hashMap["following"] = true
                 //create and set following collection
                 collectionRef.document(uid1!!)
                     .collection("Following").document(user.uid)
@@ -87,11 +94,24 @@ class SearchRecyclerAdapter(private val context: Context, val userList: List<Use
                             .set(hashMap).addOnSuccessListener {
                                 Log.e(TAG, "bindTo: Setting Followers successful")
                                 binding.btnFollow.text = "UnFollow"
+                                binding.btnFollow.isEnabled = true
+                                binding.progressSearchItem.isVisible = false
+                            }.addOnFailureListener {
+                                binding.btnFollow.isEnabled = true
+                                binding.progressSearchItem.isVisible = false
+                                Toast.makeText(
+                                    context,
+                                    "Failure due to ${it.message}",
+                                    Toast.LENGTH_SHORT
+                                )
+                                    .show()
                             }
 
                     }.addOnFailureListener {
                         Toast.makeText(context, "Failure due to ${it.message}", Toast.LENGTH_SHORT)
                             .show()
+                        binding.btnFollow.isEnabled = true
+                        binding.progressSearchItem.isVisible = false
                     }
             }
         }
@@ -105,10 +125,28 @@ class SearchRecyclerAdapter(private val context: Context, val userList: List<Use
                     .addOnSuccessListener {
                         collectionRef.document(user.uid).collection("Followers").document(uid1)
                             .delete().addOnSuccessListener {
-                            Log.d(TAG, "handleUnfollow: Delete successful!")
-                            binding.btnFollow.text = "Follow"
-                        }
+                                Log.d(TAG, "handleUnfollow: Delete successful!")
+                                binding.btnFollow.text = "Follow"
+                                binding.btnFollow.isEnabled = true
+                                binding.progressSearchItem.isVisible = false
+                            }.addOnFailureListener {
+                                binding.btnFollow.isEnabled = true
+                                binding.progressSearchItem.isVisible = false
+                                Toast.makeText(
+                                    context,
+                                    "Failure due to ${it.message}",
+                                    Toast.LENGTH_SHORT
+                                )
+                                    .show()
+                            }
+
+                    }.addOnFailureListener {
+                        Toast.makeText(context, "Failure due to ${it.message}", Toast.LENGTH_SHORT)
+                            .show()
+                        binding.btnFollow.isEnabled = true
+                        binding.progressSearchItem.isVisible = false
                     }
+
 
             }
         }

@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.gameonanil.instagramcloneapp.ui.main.EditProfileFragment">
 
     <androidx.appcompat.widget.Toolbar
@@ -49,8 +48,8 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Full Name"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="10dp"
+            android:hint="Full Name">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etFullNameEdit"
@@ -64,8 +63,8 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter User Name"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="10dp"
+            android:hint="Enter User Name">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etUserNameEditProfile"
@@ -79,8 +78,8 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter Bio"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="10dp"
+            android:hint="Enter Bio">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etBioEdit"
@@ -101,6 +100,14 @@
 
 
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressbar_edit_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        tools:visibility="visible" />
 
 
 </RelativeLayout>
