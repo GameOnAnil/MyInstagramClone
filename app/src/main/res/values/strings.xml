@@ -2,4 +2,7 @@
     <string name="app_name">InstagramClone</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="facebook_app_id">277488510482712</string>
+    <string name="fb_login_protocol_scheme">fb277488510482712</string>
 </resources>

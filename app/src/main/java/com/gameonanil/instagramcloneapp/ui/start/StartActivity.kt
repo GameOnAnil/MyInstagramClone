@@ -9,6 +9,7 @@ import android.view.WindowManager
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.facebook.FacebookSdk
 import com.gameonanil.imatagramcloneapp.R
 import com.gameonanil.instagramcloneapp.ui.main.MainActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -22,15 +23,14 @@ class StartActivity : AppCompatActivity() {
         setContentView(R.layout.activity_start)
 
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
-
-
         val navHostFragment =supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment
          navController = navHostFragment.navController
-
         setSupportActionBar(toolbar_startup)
-
         setupActionBarWithNavController(navController)
 
+
+        /**For Facebook SDK*/
+        FacebookSdk.sdkInitialize(this);
 
     }
 

@@ -6,18 +6,22 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.facebook.*
+import com.facebook.login.LoginManager
+import com.facebook.login.LoginResult
 import com.gameonanil.imatagramcloneapp.R
 import com.gameonanil.instagramcloneapp.ui.main.MainActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.*
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_login.*
+
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
     companion object {
@@ -28,6 +32,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var firebaseFireStore: FirebaseFirestore
+    private lateinit var mCallbackManager: CallbackManager
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,6 +40,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
 
 
+        LoginManager.getInstance().logOut()
         firebaseFireStore = FirebaseFirestore.getInstance()
         auth = FirebaseAuth.getInstance()
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -80,6 +86,34 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         btn_login_google.setOnClickListener {
             signInWithGoogle()
         }
+
+
+        mCallbackManager = CallbackManager.Factory.create()
+
+        btn_login_facebook.fragment = this
+        btn_login_facebook.setPermissions("email", "public_profile")
+        btn_login_facebook.registerCallback(
+            mCallbackManager,
+            object : FacebookCallback<LoginResult> {
+                override fun onSuccess(loginResult: LoginResult) {
+                    Log.d(TAG, "facebook:onSuccess:$loginResult")
+                    btn_login_facebook.isEnabled = false
+                    progress_log_in.isVisible = true
+                    handleFacebookAccessToken(loginResult.accessToken)
+                }
+
+                override fun onCancel() {
+                    Log.d(TAG, "facebook:onCancel")
+                    btn_login_facebook.isEnabled = true
+                    progress_log_in.isVisible = false
+                }
+
+                override fun onError(error: FacebookException) {
+                    Log.d(TAG, "facebook:onError", error)
+                    btn_login_facebook.isEnabled = true
+                    progress_log_in.isVisible = false
+                }
+            })
     }
 
     private fun signInWithGoogle() {
@@ -98,6 +132,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        mCallbackManager.onActivityResult(requestCode, resultCode, data)
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_SIGN_IN) {
             if (resultCode == Activity.RESULT_OK) {
@@ -120,6 +155,14 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             }
         }
     }
+
+/*    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        // Pass the activity result back to the Facebook SDK
+        mCallbackManager.onActivityResult(requestCode, resultCode, data)
+    }*/
+
 
     private fun firebaseAuthWithGoogle(idToken: String) {
         Log.d(TAG, "firebaseAuthWithGoogle: firebaseAuthWithGoogle called")
@@ -145,8 +188,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                             Log.d(TAG, "firebaseAuthWithGoogle: login successful!!!!!!")
                             goToMainActivity()
                         }
-
-
                     }
 
 
@@ -157,6 +198,57 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 }
             }
     }
+
+    private fun handleFacebookAccessToken(token: AccessToken) {
+        Log.d(TAG, "handleFacebookAccessToken:$token")
+
+            val credential = FacebookAuthProvider.getCredential(token.token)
+            auth.signInWithCredential(credential)
+                .addOnCompleteListener(requireActivity()) { task ->
+                    if (task.isSuccessful) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d(TAG, "signInWithCredential:success")
+                        val user = auth.currentUser
+
+                        user?.let { currentUser ->
+                            val userMap = HashMap<String, Any>()
+                            userMap["uid"] = currentUser.uid
+                            userMap["username"] = currentUser.displayName!!
+                            userMap["email"] = user.email!!
+                            userMap["profile_image"] = ""
+                            userMap["fullname"] = user.displayName!!
+
+                            val documentRef =
+                                firebaseFireStore.collection("users").document(user.uid)
+                            documentRef.set(userMap).addOnSuccessListener {
+                                Toast.makeText(activity, "Login Successful", Toast.LENGTH_SHORT)
+                                    .show()
+                                Log.d(TAG, "firebaseAuthWithGoogle: login successful!!!!!!")
+                                btn_login_facebook.isEnabled = true
+                                progress_log_in.isVisible = false
+                                goToMainActivity()
+                            }
+                        }
+
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w(TAG, "signInWithCredential:failure", task.exception)
+                        try {
+                            throw task.exception!!
+                        }catch (e: FirebaseAuthUserCollisionException) {
+                            LoginManager.getInstance().logOut()
+                            btn_login_facebook.isEnabled = true
+                            progress_log_in.isVisible = false
+                            Toast.makeText(activity, "You already have an Gmail account with this email, Please login through that.", Toast.LENGTH_LONG).show()
+                        }
+
+                    }
+                }
+
+
+
+    }
+
 
     private fun signOutGoogle() {
         auth.signOut()
