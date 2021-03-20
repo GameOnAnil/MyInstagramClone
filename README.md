@@ -8,7 +8,7 @@ This is my instagram clone app to pratice Firebase login and signup and use of F
 
 
 ## Package Structure
-
+...
 |__adapter			#has all the recycler adapter
 |__models			#has all the data class
 |__ui				#has all the activity and fragment
