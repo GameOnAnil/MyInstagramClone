@@ -12,9 +12,9 @@ This is my instagram clone app to pratice Firebase login and signup and use of F
  --com.gameonanil.my.instagramcloneapp
    -- adapter             (has all the recycler adapter)
    -- models              (has all the data class)
-   -- ui				  (All Activity and Fragment)
-     -- main 			  (Activity and Fragments after login)
-     -- start 			  (Login and signup fragment)
+   -- ui                  (All Activity and Fragment)
+     -- main              (Activity and Fragments after login)
+     -- start             (Login and signup fragment)
 ```
 
 
