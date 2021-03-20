@@ -10,9 +10,9 @@ This is my instagram clone app to pratice Firebase login and signup and use of F
 ## Package Structure
 
 - com.gameonanil.my.instagramcloneapp
-   -adapter
-   -models
-   -ui
-      -main
-      -start
+   - adapter
+   - models
+   - ui
+      - main
+      - start
 
