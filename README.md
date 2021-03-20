@@ -5,7 +5,7 @@ This is my instagram clone app to pratice Firebase login and signup and use of F
 
 ***Download latest apk from below 👇***
 
-[![Instagram Clone App](https://img.shields.io/badge/Downlaod-Apk-blue)](https://drive.google.com/drive/u/0/folders/14EWoOstDC4Mv7l66BiSz-lHDAtzi_534)
+[![Instagram Clone App](https://img.shields.io/badge/%20%20Downlaod%20Latest%20-Apk-red)](https://drive.google.com/drive/u/0/folders/14EWoOstDC4Mv7l66BiSz-lHDAtzi_534)
 
 ## Built With 🛠
 - [Kotlin](https://kotlinlang.org/) - First class and official programming language for Android development.
