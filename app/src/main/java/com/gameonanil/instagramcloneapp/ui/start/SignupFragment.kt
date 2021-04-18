@@ -43,6 +43,8 @@ class SignupFragment : Fragment(R.layout.fragment_signup) {
                 Toast.makeText(activity, "UserName cannot be empty", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+
+
             button_register.isEnabled = false
             progress_sign_up.isVisible = true
 
@@ -50,6 +52,7 @@ class SignupFragment : Fragment(R.layout.fragment_signup) {
             val password = etSignUpPassword.text.toString().trim()
             val username = etUserName.text.toString().trim()
             val fullName = etFullName.text.toString().trim()
+
 
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->

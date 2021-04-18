@@ -54,13 +54,29 @@
 
         </RelativeLayout>
 
-
-        <ImageView
-            android:id="@+id/post_image_home"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="220dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/cat" />
+            >
+            <ImageView
+                android:id="@+id/post_image_home"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/cat" />
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:id="@+id/progress_loading_pic"
+                android:visibility="gone"
+                tools:visibility="visible"/>
+
+        </RelativeLayout>
+
+
+
 
 
         <RelativeLayout

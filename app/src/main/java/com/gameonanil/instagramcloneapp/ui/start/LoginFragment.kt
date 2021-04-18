@@ -110,6 +110,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
                 override fun onError(error: FacebookException) {
                     Log.d(TAG, "facebook:onError", error)
+                    Toast.makeText(activity, "Error: ${error.message}", Toast.LENGTH_SHORT).show()
                     btn_login_facebook.isEnabled = true
                     progress_log_in.isVisible = false
                 }
@@ -147,9 +148,11 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                     } catch (e: ApiException) {
                         // Google Sign In failed, update UI appropriately
                         Log.w(TAG, "Google sign in failed", e)
+                        Toast.makeText(activity, "Google sign in failed: ${e.message}", Toast.LENGTH_SHORT).show()
                     }
                 } else {
                     Log.e(TAG, "onActivityResult: task failed!!!!!!!")
+                    Toast.makeText(activity, "Error: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
 
             }
@@ -166,6 +169,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private fun firebaseAuthWithGoogle(idToken: String) {
         Log.d(TAG, "firebaseAuthWithGoogle: firebaseAuthWithGoogle called")
+        progress_log_in.isVisible = true
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         auth.signInWithCredential(credential)
             .addOnCompleteListener(requireActivity()) { task ->
@@ -183,17 +187,35 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                         userMap["fullname"] = user.displayName!!
 
                         val documentRef = firebaseFireStore.collection("users").document(user.uid)
-                        documentRef.set(userMap).addOnSuccessListener {
-                            Toast.makeText(activity, "Login Successful", Toast.LENGTH_SHORT).show()
-                            Log.d(TAG, "firebaseAuthWithGoogle: login successful!!!!!!")
-                            goToMainActivity()
+
+                        //Checking if the document already exixts and adding new user if not
+                        documentRef.addSnapshotListener{snapshot,exception->
+                            if (snapshot != null) {
+                                if (!snapshot.exists()){
+                                    documentRef.set(userMap).addOnSuccessListener {
+                                        Toast.makeText(activity, "Login Successful", Toast.LENGTH_SHORT).show()
+                                        Log.d(TAG, "firebaseAuthWithGoogle: login successful!!!!!!")
+                                        progress_log_in.isVisible = false
+                                        goToMainActivity()
+                                    }
+                                }else{
+                                    Toast.makeText(activity, "Login Successful", Toast.LENGTH_SHORT).show()
+                                    Log.d(TAG, "firebaseAuthWithGoogle: login successful!!!!!!")
+                                    progress_log_in.isVisible = false
+                                    goToMainActivity()
+                                }
+                            }
                         }
+
                     }
 
 
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.e(TAG, "signInWithCredential:failure", task.exception)
+                    Toast.makeText(activity, "Error: ${task.exception?.message}", Toast.LENGTH_LONG)
+                        .show()
+                    progress_log_in.isVisible = false
 
                 }
             }
@@ -221,7 +243,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                             val documentRef =
                                 firebaseFireStore.collection("users").document(user.uid)
                             documentRef.set(userMap).addOnSuccessListener {
-                                Toast.makeText(activity, "Login Successful", Toast.LENGTH_SHORT)
+                                Toast.makeText(activity, "Login Successful", Toast.LENGTH_LONG)
                                     .show()
                                 Log.d(TAG, "firebaseAuthWithGoogle: login successful!!!!!!")
                                 btn_login_facebook.isEnabled = true
