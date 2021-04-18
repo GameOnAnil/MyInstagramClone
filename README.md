@@ -1,11 +1,11 @@
-![](Photos/instagram_clone_poster.jpg)
+![](Photos/instagram_clone_poster.png)
 
 # My Instagram Clone
 This is my instagram clone app to pratice Firebase login and signup and use of Firestore
 
-***You can Install and test latest Foodium app from below 👇***
+***Download latest apk from below 👇***
 
-[![Movie Finder App](https://img.shields.io/badge/MovieFinder🍿-APK-red.svg?style=for-the-badge&logo=android)](https://github.com/gameonanil/MovieSearchingApp/tree/master/app/release/app-release.apk)
+[![Instagram Clone App](https://img.shields.io/badge/%20%20Downlaod%20Latest%20-Apk-red)](https://drive.google.com/drive/u/0/folders/14EWoOstDC4Mv7l66BiSz-lHDAtzi_534)
 
 ## Built With 🛠
 - [Kotlin](https://kotlinlang.org/) - First class and official programming language for Android development.
