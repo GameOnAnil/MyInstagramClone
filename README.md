@@ -10,9 +10,9 @@ This is my instagram clone app to pratice Firebase login and signup and use of F
 ## Built With 🛠
 - [Kotlin](https://kotlinlang.org/) - First class and official programming language for Android development.
 - [Navigation Component](https://developer.android.com/guide/navigation) -Navigation refers to the interactions that allow users to navigate across, into, and back out from the different pieces of content within your app.
--[View Binding](https://developer.android.com/topic/libraries/view-binding) View binding is a feature that allows you to more easily write code that interacts with views. 
--[Firebase Firestore](https://firebase.google.com/docs/firestore):Cloud Firestore is a flexible, scalable database for mobile, web, and server development from Firebase and Google Cloud.
--[Firebase Authentication](https://firebase.google.com/docs/auth):Firebase Authentication provides backend services, easy-to-use SDKs, and ready-made UI libraries to authenticate users to your app.
+- [View Binding](https://developer.android.com/topic/libraries/view-binding) View binding is a feature that allows you to more easily write code that interacts with views. 
+- [Firebase Firestore](https://firebase.google.com/docs/firestore):Cloud Firestore is a flexible, scalable database for mobile, web, and server development from Firebase and Google Cloud.
+- [Firebase Authentication](https://firebase.google.com/docs/auth):Firebase Authentication provides backend services, easy-to-use SDKs, and ready-made UI libraries to authenticate users to your app.
 
 
 ## Package Structure
